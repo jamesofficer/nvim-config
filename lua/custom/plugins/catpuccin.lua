@@ -86,7 +86,5 @@ return {
     }
 
     require('catppuccin').setup(options)
-
-    vim.cmd.colorscheme 'catppuccin-mocha'
   end,
 }
