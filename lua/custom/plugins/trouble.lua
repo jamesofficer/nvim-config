@@ -1,7 +1,7 @@
 return {
   'folke/trouble.nvim',
-  opts = {}, -- for default options, refer to the configuration section for custom setup.
   cmd = 'Trouble',
+  opts = {},
   keys = {
     {
       '<leader>dD',
@@ -32,6 +32,11 @@ return {
       '<leader>dq',
       '<cmd>Trouble qflist toggle<cr>',
       desc = 'Quickfix List (Trouble)',
+    },
+    {
+      '<space>dv',
+      vim.diagnostic.open_float,
+      desc = 'Open diagnostic float',
     },
   },
 }

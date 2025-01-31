@@ -90,6 +90,8 @@ vim.keymap.set('n', '<leader>uc', '<CMD>:Telescope colorscheme<CR>', { desc = '[
 
 vim.keymap.set('n', '<leader>uy', ':%y+<CR>', { desc = 'Yank entire buffer to clipboard' })
 
+vim.keymap.set('n', '<leader>bd', '<CMD>:bd<CR>', { desc = '[D]elete Buffer' })
+
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', '<CMD>:CodeCompanionActions<CR>', { desc = '[A]ction Palette' })
 vim.keymap.set({ 'n', 'v' }, '<leader>at', '<CMD>:CodeCompanionToggle<CR>', { desc = '[T]oggle Assistant' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ac', '<CMD>:CodeCompanionChat<CR>', { desc = '[C]hat with Assitant' })

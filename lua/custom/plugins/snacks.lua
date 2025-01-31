@@ -15,7 +15,7 @@ return {
     notifier = { enabled = false },
     picker = { enabled = true },
     quickfile = { enabled = false },
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     statuscolumn = { enabled = false },
     words = { enabled = true },
     zen = { enabled = true },
@@ -42,7 +42,7 @@ return {
     -- Bufdelete
     --------------
     {
-      '<leader>bd',
+      '<leader>bD',
       function()
         Snacks.bufdelete()
       end,
