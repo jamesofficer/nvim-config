@@ -27,16 +27,13 @@ return {
     {
       '<leader>us',
       function()
-        Snacks.scroll.enable()
+        if Snacks.scroll.enabled then
+          Snacks.scroll.disable()
+        else
+          Snacks.scroll.enable()
+        end
       end,
-      desc = 'Enable Smooth Scroll',
-    },
-    {
-      '<leader>uS',
-      function()
-        Snacks.scroll.disable()
-      end,
-      desc = 'Disable Smooth Scroll',
+      desc = 'Toggle Smooth Scroll',
     },
     --------------
     -- Bufdelete
@@ -52,7 +49,7 @@ return {
     -- Zen
     --------------
     {
-      '<leader>zz',
+      '<leader>uz',
       function()
         Snacks.zen()
       end,
@@ -64,16 +61,13 @@ return {
     {
       '<leader>uw',
       function()
-        Snacks.words.enable()
+        if Snacks.words.is_enabled() then
+          Snacks.words.disable()
+        else
+          Snacks.words.enable()
+        end
       end,
-      desc = 'Words',
-    },
-    {
-      '<leader>uW',
-      function()
-        Snacks.words.disable()
-      end,
-      desc = 'Words Disable',
+      desc = 'Toggle Words',
     },
     --------------
     -- Dim
@@ -81,16 +75,13 @@ return {
     {
       '<leader>ud',
       function()
-        Snacks.dim()
+        if Snacks.dim.enabled then
+          Snacks.dim.disable()
+        else
+          Snacks.dim.enable()
+        end
       end,
-      desc = 'Dim',
-    },
-    {
-      '<leader>uD',
-      function()
-        Snacks.dim.disable()
-      end,
-      desc = 'Dim Disable',
+      desc = 'Toggle Dim',
     },
     --------------
     -- LazyGit
@@ -158,7 +149,7 @@ return {
       desc = 'Diagnostics',
     },
     {
-      '<leader>sr',
+      '<leader>sc',
       function()
         Snacks.picker.recent()
       end,
@@ -167,16 +158,65 @@ return {
     {
       '<leader>sR',
       function()
+        Snacks.picker.registers()
+      end,
+      desc = 'Registers',
+    },
+    {
+      '<leader>sr',
+      function()
         Snacks.picker.resume()
       end,
       desc = 'Resume',
     },
     {
-      '<leader>sc',
+      '<leader>sl',
+      function()
+        Snacks.picker.lines()
+      end,
+      desc = 'Lines',
+    },
+    {
+      '<leader>sm',
+      function()
+        Snacks.picker.marks()
+      end,
+      desc = 'Marks',
+    },
+    {
+      '<leader>su',
+      function()
+        Snacks.picker.undo()
+      end,
+      desc = 'Undo History',
+    },
+    {
+      '<leader>sj',
+      function()
+        Snacks.picker.jumps()
+      end,
+      desc = 'Jumps',
+    },
+    {
+      '<leader>ls',
+      function()
+        Snacks.picker.lsp_symbols()
+      end,
+      desc = 'Lsp Symbols',
+    },
+    {
+      '<leader>lS',
+      function()
+        Snacks.picker.lsp_workspace_symbols()
+      end,
+      desc = 'Lsp Symbols (Workspace)',
+    },
+    {
+      '<leader>uc',
       function()
         Snacks.picker.colorschemes()
       end,
-      desc = 'Colorschemes',
+      desc = 'Colorschemes (UI)',
     },
   },
 }

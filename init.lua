@@ -86,8 +86,6 @@ vim.keymap.set('n', '<leader>xz', '<CMD>:q<CR>', { desc = 'Close without Saving'
 vim.keymap.set('n', '<leader>xa', '<CMD>:wqa!<CR>', { desc = 'Close and Save [A]ll' })
 vim.keymap.set('n', '<leader>xq', '<CMD>:qa!<CR>', { desc = 'Close [A]ll' })
 
-vim.keymap.set('n', '<leader>uc', '<CMD>:Telescope colorscheme<CR>', { desc = '[C]olorschemes' })
-
 vim.keymap.set('n', '<leader>uy', ':%y+<CR>', { desc = 'Yank entire buffer to clipboard' })
 
 vim.keymap.set('n', '<leader>bd', '<CMD>:bd<CR>', { desc = '[D]elete Buffer' })
@@ -194,7 +192,9 @@ require('lazy').setup({
         { '<leader>u', group = '[U]ser Interface' },
         { '<leader>f', group = '[F]lutter' },
         { '<leader>u', group = '[U]ser Interface' },
-        { '<leader>p', group = '[P]inned Files ()' },
+        { '<leader>p', group = '[P]inned Files' },
+        { '<leader>b', group = '[B]uffers' },
+        { '<leader>l', group = '[L]SP' },
         { '<leader>x', group = 'Close' },
       }
     end,
@@ -343,8 +343,8 @@ require('lazy').setup({
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-          map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-          map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          -- map('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          -- map('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
           map('<leader>cr', vim.lsp.buf.rename, '[R]ename Symbol')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -569,7 +569,7 @@ require('lazy').setup({
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-moon'
       vim.cmd.hi 'Comment gui=none'
     end,
   },
