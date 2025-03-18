@@ -97,6 +97,29 @@ vim.keymap.set({ 'n', 'v' }, '<leader>ai', '<CMD>:CodeCompanion<CR>', { desc = '
 
 vim.api.nvim_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
 
+-- Remove unused imports specifically for TypeScript/JavaScript
+vim.keymap.set('n', '<leader>cu', function()
+  vim.lsp.buf.code_action {
+    apply = true,
+    context = {
+      only = { 'source.removeUnusedImports.ts' },
+      diagnostics = {},
+    },
+  }
+end, { desc = 'Remove unused TypeScript/JavaScript imports' })
+
+-- Git Diff Options
+vim.opt.diffopt = {
+  'internal',
+  'filler',
+  'closeoff',
+  'context:12',
+  'algorithm:histogram',
+  'linematch:200',
+  'indent-heuristic',
+  'iwhite', -- I toggle this one, it doesn't fit all cases.
+}
+
 -- Remove Keymap
 -- vim.keymap.del('n', '<D-S-N>')
 -- vim.keymap.del('n', '<C-S-K>')
