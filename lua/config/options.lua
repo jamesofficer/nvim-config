@@ -1,0 +1,12 @@
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.smartindent = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.scrolloff = 999
+vim.opt.termguicolors = true
+vim.opt.undofile = true
+vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
+vim.opt.cursorline = true -- Show which line your cursor is on
