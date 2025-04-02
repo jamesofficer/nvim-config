@@ -14,15 +14,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+require("config/options")
+require("config/keybinds")
+require("config/functions")
+require("lazy").setup("plugins")
+
 local lspconfig = require("lspconfig")
 local lsps = { "ts_ls" }
 for _, lsp in pairs(lsps) do
 	local setup = {}
 	lspconfig[lsp].setup(setup)
 end
-
-require("config/options")
-require("config/keybinds")
-require("config/functions")
-
-require("lazy").setup("plugins")
