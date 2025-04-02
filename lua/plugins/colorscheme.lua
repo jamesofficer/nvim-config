@@ -2,10 +2,10 @@ return {
 	{
 		"folke/tokyonight.nvim",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
-			vim.cmd.colorscheme("tokyonight-moon")
-			vim.cmd.hi("Comment gui=none")
-		end,
+		-- init = function()
+		-- 	vim.cmd.colorscheme("tokyonight-moon")
+		-- 	vim.cmd.hi("Comment gui=none")
+		-- end,
 	},
 
 	{
@@ -28,7 +28,19 @@ return {
 			require("bamboo").setup({
 				-- optional configuration here
 			})
-			require("bamboo").load()
+			-- require("bamboo").load()
+		end,
+	},
+
+	{
+		"sainnhe/sonokai",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			-- Optionally configure and load the colorscheme
+			-- directly inside the plugin declaration.
+			vim.g.sonokai_enable_italic = true
+			vim.cmd.colorscheme("sonokai")
 		end,
 	},
 }
