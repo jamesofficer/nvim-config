@@ -39,9 +39,19 @@ return {
 				lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
 			}
 		end,
+		formatters = {
+			biome = {
+				require_cwd = true,
+			},
+		},
 		formatters_by_ft = {
 			lua = { "stylua" },
-			javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+			javascript = { "biome", stop_after_first = true },
+			javascriptreact = { "biome" },
+			typescript = { "biome" },
+			typescriptreact = { "biome" },
+			json = { "biome" },
+			jsonc = { "biome" },
 			-- python = { "isort", "black" },
 		},
 	},
