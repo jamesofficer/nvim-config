@@ -1,7 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
-	dependencies = { "rafamadriz/friendly-snippets" },
+	-- dependencies = { "rafamadriz/friendly-snippets" },
 	version = "*",
 
 	---@module 'blink.cmp'
@@ -36,30 +36,35 @@ return {
 			["<C-p>"] = { "select_prev", "fallback" },
 			["<C-n>"] = { "select_next", "fallback" },
 			["<C-up>"] = { "scroll_documentation_up", "fallback" },
-			["<C-down>"] = { "scroll_documentation_down", "fallback" },
 		},
 
 		appearance = {
 			nerd_font_variant = "mono",
 		},
 
-		-- signature = {
-		-- 	enabled = true,
-		-- },
-
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			-- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
+			-- default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets" },
 		},
+
+		signature = { enabled = true },
 
 		completion = {
 			trigger = {
 				show_on_keyword = true,
 			},
 
+			keyword = { range = "full" },
+
+			accept = { auto_brackets = { enabled = false } },
+
 			documentation = { auto_show = true },
 
 			-- Use mini.icons
 			menu = {
+				auto_show = true,
+
 				draw = {
 					components = {
 						kind_icon = {

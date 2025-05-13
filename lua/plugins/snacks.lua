@@ -17,10 +17,21 @@ return {
 		quickfile = { enabled = false },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
+		terminal = { enabled = true },
 		words = { enabled = true },
 		zen = { enabled = true },
 	},
 	keys = {
+		--------------
+		-- Terminal
+		--------------
+		{
+			"<leader>m",
+			function()
+				Snacks.terminal()
+			end,
+			desc = "Toggle Terminal",
+		},
 		--------------
 		-- Bufdelete
 		--------------
@@ -100,7 +111,7 @@ return {
 		-- Pickers
 		--------------
 		{
-			"<leader>sS",
+			"<leader>sa",
 			function()
 				Snacks.picker.files()
 			end,
@@ -108,6 +119,13 @@ return {
 		},
 		{
 			"<leader>ss",
+			function()
+				Snacks.picker.smart()
+			end,
+			desc = "Smart Find Files",
+		},
+		{
+			"<leader>sS",
 			function()
 				Snacks.picker.git_files()
 			end,
@@ -130,9 +148,16 @@ return {
 		{
 			"<leader>sd",
 			function()
+				Snacks.picker.diagnostics_buffer()
+			end,
+			desc = "Diagnostics (Buffer)",
+		},
+		{
+			"<leader>sD",
+			function()
 				Snacks.picker.diagnostics()
 			end,
-			desc = "Diagnostics",
+			desc = "Diagnostics (All)",
 		},
 		{
 			"<leader>sc",
@@ -163,11 +188,25 @@ return {
 			desc = "Lines",
 		},
 		{
+			"<leader>se",
+			function()
+				Snacks.picker.explorer()
+			end,
+			desc = "File Explorer",
+		},
+		{
 			"<leader>sm",
 			function()
 				Snacks.picker.marks()
 			end,
 			desc = "Marks",
+		},
+		{
+			"<leader>sq",
+			function()
+				Snacks.picker.qflist()
+			end,
+			desc = "Quickfix List",
 		},
 		{
 			"<leader>su",
@@ -177,12 +216,40 @@ return {
 			desc = "Undo History",
 		},
 		{
+			"<leader>sh",
+			function()
+				Snacks.picker.search_history()
+			end,
+			desc = "Search History",
+		},
+		{
 			"<leader>sj",
 			function()
 				Snacks.picker.jumps()
 			end,
 			desc = "Jumps",
 		},
+		-- {
+		-- 	"<leader>gB",
+		-- 	function()
+		-- 		Snacks.picker.git_branches()
+		-- 	end,
+		-- 	desc = "Git Branches",
+		-- },
+		-- {
+		-- 	"<leader>gl",
+		-- 	function()
+		-- 		Snacks.picker.git_log()
+		-- 	end,
+		-- 	desc = "Git Log",
+		-- },
+		-- {
+		-- 	"<leader>ga",
+		-- 	function()
+		-- 		Snacks.picker.git_stash()
+		-- 	end,
+		-- 	desc = "Git Stash",
+		-- },
 		{
 			"<leader>ls",
 			function()
