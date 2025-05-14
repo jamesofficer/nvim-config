@@ -101,7 +101,7 @@ return {
 			desc = "GitBrowse",
 		},
 		{
-			"<leader>pa",
+			"<leader>sA",
 			function()
 				Snacks.picker()
 			end,
