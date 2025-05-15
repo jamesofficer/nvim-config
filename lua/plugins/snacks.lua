@@ -160,6 +160,20 @@ return {
 			desc = "Diagnostics (All)",
 		},
 		{
+			"<leader>sy",
+			function()
+				Snacks.picker.lsp_workspace_symbols()
+			end,
+			desc = "Lsp Symbols (Workspace)",
+		},
+		{
+			"<leader>sY",
+			function()
+				Snacks.picker.lsp_symbols()
+			end,
+			desc = "Lsp Symbols",
+		},
+		{
 			"<leader>sc",
 			function()
 				Snacks.picker.recent()
@@ -250,20 +264,6 @@ return {
 		-- 	end,
 		-- 	desc = "Git Stash",
 		-- },
-		{
-			"<leader>ls",
-			function()
-				Snacks.picker.lsp_symbols()
-			end,
-			desc = "Lsp Symbols",
-		},
-		{
-			"<leader>lS",
-			function()
-				Snacks.picker.lsp_workspace_symbols()
-			end,
-			desc = "Lsp Symbols (Workspace)",
-		},
 		{
 			"<leader>uc",
 			function()
