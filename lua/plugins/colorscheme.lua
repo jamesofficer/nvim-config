@@ -7,7 +7,6 @@ return {
 		-- 	vim.cmd.hi("Comment gui=none")
 		-- end,
 	},
-
 	{
 		"sainnhe/gruvbox-material",
 		lazy = true,
@@ -19,7 +18,6 @@ return {
 			-- vim.cmd.colorscheme("gruvbox-material")
 		end,
 	},
-
 	{
 		"ribru17/bamboo.nvim",
 		lazy = false,
@@ -31,7 +29,6 @@ return {
 			-- require("bamboo").load()
 		end,
 	},
-
 	{
 		"sainnhe/sonokai",
 		lazy = false,
@@ -42,5 +39,10 @@ return {
 			vim.g.sonokai_enable_italic = true
 			vim.cmd.colorscheme("sonokai")
 		end,
+	},
+	{
+		"kaiuri/nvim-mariana",
+		lazy = false,
+		priority = 1000,
 	},
 }

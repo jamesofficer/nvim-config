@@ -13,7 +13,7 @@ return {
 		lazygit = { enabled = true },
 		gitbrowse = { enabled = true },
 		notifier = { enabled = false },
-		picker = { enabled = true },
+		picker = { enabled = true, frecency = true, cwd_bonus = true },
 		quickfile = { enabled = false },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
@@ -26,7 +26,7 @@ return {
 		-- Terminal
 		--------------
 		{
-			"<leader>m",
+			"<leader>M",
 			function()
 				Snacks.terminal()
 			end,
@@ -120,7 +120,12 @@ return {
 		{
 			"<leader>ss",
 			function()
-				Snacks.picker.smart()
+				Snacks.picker.smart({
+					matcher = {
+						cwd_bonus = true,
+						frecency = true,
+					},
+				})
 			end,
 			desc = "Smart Find Files",
 		},
@@ -162,16 +167,38 @@ return {
 		{
 			"<leader>sy",
 			function()
-				Snacks.picker.lsp_workspace_symbols()
+				Snacks.picker.lsp_symbols({
+					filter = {
+						default = {
+							"Class",
+							-- "Constructor",
+							-- "Enum",
+							"Field",
+							"Function",
+							"Interface",
+							"Method",
+							-- "Module",
+							-- "Namespace",
+							-- "Package",
+							-- "Property",
+							-- "Struct",
+							-- "Trait",
+						},
+						-- set to `true` to include all symbols
+						markdown = true,
+						help = true,
+						-- you can specify a different filter for each filetype
+					},
+				})
 			end,
-			desc = "Lsp Symbols (Workspace)",
+			desc = "Lsp Symbols",
 		},
 		{
 			"<leader>sY",
 			function()
-				Snacks.picker.lsp_symbols()
+				Snacks.picker.lsp_workspace_symbols()
 			end,
-			desc = "Lsp Symbols",
+			desc = "Lsp Symbols (Workspace)",
 		},
 		{
 			"<leader>sc",
