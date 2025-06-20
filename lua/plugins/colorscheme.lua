@@ -41,7 +41,17 @@ return {
 		end,
 	},
 	{
-		"kaiuri/nvim-mariana",
+		"Mofiqul/vscode.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.g.vscode_style = "dark"
+			-- vim.cmd.colorscheme("vscode")
+		end,
+	},
+	{
+		"bluz71/vim-nightfly-colors",
+		name = "nightfly",
 		lazy = false,
 		priority = 1000,
 	},
