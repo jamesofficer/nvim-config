@@ -12,7 +12,9 @@ return {
 		-- keymap = { preset = "default" },
 
 		keymap = {
-			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			-- ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-i>"] = { "show", "show_documentation", "hide_documentation" },
+
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 
@@ -23,6 +25,7 @@ return {
 				"snippet_forward",
 				"fallback",
 			},
+
 			["<S-Tab>"] = {
 				function(cmp)
 					return cmp.select_prev()
@@ -33,19 +36,26 @@ return {
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
-			["<C-p>"] = { "select_prev", "fallback" },
-			["<C-n>"] = { "select_next", "fallback" },
-			["<C-up>"] = { "scroll_documentation_up", "fallback" },
+
+			["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+			["<C-n>"] = { "select_next", "fallback_to_mappings" },
+
+			["<C-a>"] = { "scroll_documentation_up", "fallback" },
+			["<C-h>"] = { "scroll_documentation_down", "fallback" },
 		},
 
 		appearance = {
 			nerd_font_variant = "mono",
 		},
 
+		-- snippets = {
+		-- 	preset = "mini_snippets",
+		-- },
+
 		sources = {
 			-- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
 			-- default = { "lsp", "path", "snippets", "buffer" },
-			default = { "lsp", "path", "snippets" },
+			default = { "snippets", "lsp", "path", "buffer" },
 		},
 
 		signature = { enabled = true },
@@ -59,7 +69,11 @@ return {
 
 			accept = { auto_brackets = { enabled = false } },
 
-			documentation = { auto_show = true },
+			list = { selection = { preselect = false, auto_insert = false } },
+
+			documentation = { auto_show = true, auto_show_delay = 300 },
+
+			ghost_text = { enabled = false },
 
 			-- Use mini.icons
 			menu = {
