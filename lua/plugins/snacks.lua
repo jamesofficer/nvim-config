@@ -13,7 +13,7 @@ return {
 		lazygit = { enabled = true },
 		gitbrowse = { enabled = true },
 		notifier = { enabled = false },
-		picker = { enabled = true, frecency = true, cwd_bonus = true },
+		picker = { enabled = true },
 		quickfile = { enabled = false },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
@@ -124,6 +124,9 @@ return {
 					matcher = {
 						cwd_bonus = true,
 						frecency = true,
+					},
+					filter = {
+						cwd = true,
 					},
 				})
 			end,

@@ -37,6 +37,13 @@ vim.keymap.set("n", "<leader>cu", function()
 			diagnostics = {},
 		},
 	})
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.organizeImports.ts" },
+			diagnostics = {},
+		},
+	})
 end, { desc = "Remove unused TypeScript/JavaScript imports" })
 
 vim.keymap.set("n", "<leader>up", "<CMD>:Precognition toggle<CR>", { desc = "Toggle Precognition" })

@@ -4,7 +4,7 @@ return {
 		event = "VeryLazy",
 		---@type Flash.Config
 		opts = {
-			labels = "nrtsgyhaeildwfoumcp",
+			labels = "shtarenifwodulcpkvbj",
 		},
 		-- Support using flash keymaps in the snacks picker.
 		specs = {
