@@ -46,6 +46,16 @@ vim.keymap.set("n", "<leader>cu", function()
 	})
 end, { desc = "Remove unused TypeScript/JavaScript imports" })
 
+vim.keymap.set("n", "<leader>co", function()
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.organizeImports.ts" },
+			diagnostics = {},
+		},
+	})
+end, { desc = "Organize TypeScript/JavaScript imports" })
+
 vim.keymap.set("n", "<leader>up", "<CMD>:Precognition toggle<CR>", { desc = "Toggle Precognition" })
 vim.keymap.set("n", "<leader>uh", "<CMD>:Hardtime toggle<CR>", { desc = "Toggle Hardtime" })
 vim.keymap.set("n", "<leader>ut", "<CMD>:Typr<CR>", { desc = "Toggle Typr" })
