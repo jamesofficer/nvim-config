@@ -19,6 +19,8 @@ require("config/keybinds")
 require("config/functions")
 require("lazy").setup("plugins")
 
+require("auto_logger").setup()
+
 local lspconfig = require("lspconfig")
 local lsps = { "ts_ls" }
 for _, lsp in pairs(lsps) do
