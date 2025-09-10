@@ -1,5 +1,5 @@
--- auto_logger.lua (Treesitter version)
--- Place this file in ~/.config/nvim/lua/auto_logger.lua
+-- quicklog.lua (Treesitter version)
+-- Place this file in ~/.config/nvim/lua/quicklog.lua
 
 local M = {}
 
@@ -258,14 +258,14 @@ function M.insert_logs()
 
 	local config = language_configs[lang]
 	if not config then
-		vim.notify("Auto-logger: Unsupported language (" .. lang .. ")", vim.log.levels.WARN)
+		vim.notify("QuickLog: Unsupported language (" .. lang .. ")", vim.log.levels.WARN)
 		return
 	end
 
 	-- Check if treesitter parser is available
 	local ok, _ = pcall(vim.treesitter.get_parser)
 	if not ok then
-		vim.notify("Auto-logger: Treesitter parser not available for " .. lang, vim.log.levels.ERROR)
+		vim.notify("QuickLog: Treesitter parser not available for " .. lang, vim.log.levels.ERROR)
 		return
 	end
 
@@ -277,7 +277,7 @@ function M.insert_logs()
 	local declarations = find_declarations_in_range(bufnr, start_line, end_line, config)
 
 	if #declarations == 0 then
-		vim.notify("Auto-logger: No variables found to log", vim.log.levels.WARN)
+		vim.notify("QuickLog: No variables found to log", vim.log.levels.WARN)
 		return
 	end
 
@@ -301,7 +301,7 @@ function M.insert_logs()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 
 	-- Report results
-	vim.notify(string.format("Auto-logger: Inserted %d log statement(s)", inserted_count), vim.log.levels.INFO)
+	vim.notify(string.format("QuickLog: Inserted %d log statement(s)", inserted_count), vim.log.levels.INFO)
 end
 
 -- Function to remove log statements
@@ -318,7 +318,7 @@ function M.remove_logs()
 
 	local config = language_configs[lang]
 	if not config then
-		vim.notify("Auto-logger: Unsupported language", vim.log.levels.WARN)
+		vim.notify("QuickLog: Unsupported language", vim.log.levels.WARN)
 		return
 	end
 
@@ -351,9 +351,9 @@ function M.remove_logs()
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 
 	if #lines_to_remove > 0 then
-		vim.notify(string.format("Auto-logger: Removed %d log statement(s)", #lines_to_remove), vim.log.levels.INFO)
+		vim.notify(string.format("QuickLog: Removed %d log statement(s)", #lines_to_remove), vim.log.levels.INFO)
 	else
-		vim.notify("Auto-logger: No log statements found to remove", vim.log.levels.WARN)
+		vim.notify("QuickLog: No log statements found to remove", vim.log.levels.WARN)
 	end
 end
 
@@ -364,16 +364,16 @@ function M.setup(opts)
 	-- Check for nvim-treesitter
 	local has_treesitter = pcall(require, "nvim-treesitter")
 	if not has_treesitter then
-		vim.notify("Auto-logger: nvim-treesitter is required but not installed", vim.log.levels.ERROR)
+		vim.notify("QuickLog: nvim-treesitter is required but not installed", vim.log.levels.ERROR)
 		return
 	end
 
 	-- Create commands
-	vim.api.nvim_create_user_command("AutoLog", function()
+	vim.api.nvim_create_user_command("QuickLog", function()
 		M.insert_logs()
 	end, { range = true })
 
-	vim.api.nvim_create_user_command("AutoLogRemove", function()
+	vim.api.nvim_create_user_command("QuickLogRemove", function()
 		M.remove_logs()
 	end, { range = true })
 
@@ -383,8 +383,8 @@ function M.setup(opts)
 		remove = "<leader>lr",
 	}
 
-	vim.keymap.set("v", keymaps.insert, ":AutoLog<CR>", { desc = "Auto insert log statements" })
-	vim.keymap.set("v", keymaps.remove, ":AutoLogRemove<CR>", { desc = "Remove log statements" })
+	vim.keymap.set("v", keymaps.insert, ":QuickLog<CR>", { desc = "QuickLog: Insert log statements" })
+	vim.keymap.set("v", keymaps.remove, ":QuickLogRemove<CR>", { desc = "QuickLog: Remove log statements" })
 end
 
 return M
