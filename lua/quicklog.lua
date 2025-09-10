@@ -4,39 +4,20 @@
 local M = {}
 
 -- Language-specific configurations
+local js_ts_config = {
+	log_template = 'console.log("%s:", %s);',
+	declaration_types = {
+		"variable_declarator",
+		"lexical_declaration",
+		"variable_declaration",
+	},
+}
+
 local language_configs = {
-	javascript = {
-		log_template = 'console.log("%s:", %s);',
-		declaration_types = {
-			"variable_declarator",
-			"lexical_declaration",
-			"variable_declaration",
-		},
-	},
-	typescript = {
-		log_template = 'console.log("%s:", %s);',
-		declaration_types = {
-			"variable_declarator",
-			"lexical_declaration",
-			"variable_declaration",
-		},
-	},
-	tsx = {
-		log_template = 'console.log("%s:", %s);',
-		declaration_types = {
-			"variable_declarator",
-			"lexical_declaration",
-			"variable_declaration",
-		},
-	},
-	jsx = {
-		log_template = 'console.log("%s:", %s);',
-		declaration_types = {
-			"variable_declarator",
-			"lexical_declaration",
-			"variable_declaration",
-		},
-	},
+	javascript = js_ts_config,
+	typescript = js_ts_config,
+	tsx = js_ts_config,
+	jsx = js_ts_config,
 	python = {
 		log_template = 'print(f"%s: {%s}")',
 		declaration_types = {
@@ -74,6 +55,16 @@ local function get_parser()
 		return nil
 	end
 	return parser
+end
+
+-- Normalize filetype for language configs
+local function normalize_filetype(lang)
+	if lang == "typescriptreact" then
+		return "tsx"
+	elseif lang == "javascriptreact" then
+		return "jsx"
+	end
+	return lang
 end
 
 -- Get node text
@@ -246,15 +237,7 @@ end
 -- Main function to insert log statements
 function M.insert_logs()
 	local bufnr = vim.api.nvim_get_current_buf()
-	local lang = vim.bo.filetype
-
-	-- Handle tsx/jsx as typescript/javascript
-	if lang == "typescriptreact" then
-		lang = "tsx"
-	end
-	if lang == "javascriptreact" then
-		lang = "jsx"
-	end
+	local lang = normalize_filetype(vim.bo.filetype)
 
 	local config = language_configs[lang]
 	if not config then
@@ -272,6 +255,12 @@ function M.insert_logs()
 	-- Get visual selection range
 	local start_line = vim.fn.line("'<")
 	local end_line = vim.fn.line("'>")
+
+	-- Validate selection
+	if start_line == 0 or end_line == 0 or start_line > end_line then
+		vim.notify("QuickLog: Invalid selection range", vim.log.levels.WARN)
+		return
+	end
 
 	-- Find all declarations in range
 	local declarations = find_declarations_in_range(bufnr, start_line, end_line, config)
@@ -307,14 +296,7 @@ end
 -- Function to remove log statements
 function M.remove_logs()
 	local bufnr = vim.api.nvim_get_current_buf()
-	local lang = vim.bo.filetype
-
-	if lang == "typescriptreact" then
-		lang = "tsx"
-	end
-	if lang == "javascriptreact" then
-		lang = "jsx"
-	end
+	local lang = normalize_filetype(vim.bo.filetype)
 
 	local config = language_configs[lang]
 	if not config then
@@ -325,9 +307,15 @@ function M.remove_logs()
 	local start_line = vim.fn.line("'<")
 	local end_line = vim.fn.line("'>")
 
+	-- Validate selection
+	if start_line == 0 or end_line == 0 or start_line > end_line then
+		vim.notify("QuickLog: Invalid selection range", vim.log.levels.WARN)
+		return
+	end
+
 	-- Extend range to catch logs after declarations
-	local extended_end = math.min(end_line + (end_line - start_line + 1), vim.api.nvim_buf_line_count(0))
-	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, extended_end, false)
+	local extended_end = math.min(end_line + (end_line - start_line + 1), vim.api.nvim_buf_line_count(bufnr))
+	local lines = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, extended_end, false)
 
 	local lines_to_remove = {}
 
@@ -345,7 +333,7 @@ function M.remove_logs()
 
 	-- Remove in reverse order
 	for i = #lines_to_remove, 1, -1 do
-		vim.api.nvim_buf_set_lines(0, lines_to_remove[i] - 1, lines_to_remove[i], false, {})
+		vim.api.nvim_buf_set_lines(bufnr, lines_to_remove[i] - 1, lines_to_remove[i], false, {})
 	end
 
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
