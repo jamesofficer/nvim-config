@@ -83,8 +83,64 @@ local function get_node_text(node, bufnr)
 	end
 end
 
--- Extract variable name from different node types
-local function extract_variable_name(node, bufnr, lang)
+-- Extract all variable names from destructuring patterns
+local function extract_identifiers_from_pattern(pattern_node, bufnr)
+	local identifiers = {}
+	
+	local function visit_pattern(node)
+		local node_type = node:type()
+		
+		if node_type == "identifier" or node_type == "shorthand_property_identifier" then
+			table.insert(identifiers, get_node_text(node, bufnr))
+		elseif node_type == "array_pattern" or node_type == "object_pattern" then
+			-- Recursively visit children for nested destructuring
+			for child in node:iter_children() do
+				if child:type() ~= "," and child:type() ~= "{" and child:type() ~= "}" 
+				   and child:type() ~= "[" and child:type() ~= "]" then -- Skip punctuation
+					visit_pattern(child)
+				end
+			end
+		elseif node_type == "pair" then
+			-- For object destructuring like {key: value} or {key: newName}
+			local value_node = node:field("value")[1]
+			if value_node then
+				visit_pattern(value_node)
+			else
+				-- If no value field, check for shorthand property
+				local key_node = node:field("key")[1]
+				if key_node and key_node:type() == "property_identifier" then
+					table.insert(identifiers, get_node_text(key_node, bufnr))
+				end
+			end
+		elseif node_type == "property_identifier" then
+			-- For object destructuring shorthand like {prop}
+			table.insert(identifiers, get_node_text(node, bufnr))
+		elseif node_type == "rest_pattern" then
+			-- For spread/rest patterns like [...rest]
+			local argument = node:field("argument")[1]
+			if argument and argument:type() == "identifier" then
+				table.insert(identifiers, get_node_text(argument, bufnr))
+			end
+		elseif node_type == "assignment_pattern" then
+			-- For default values like {x = 5} or [a = 1]
+			local left_node = node:field("left")[1]
+			if left_node then
+				visit_pattern(left_node)
+			end
+		else
+			-- For any other pattern types, recursively visit children
+			for child in node:iter_children() do
+				visit_pattern(child)
+			end
+		end
+	end
+	
+	visit_pattern(pattern_node)
+	return identifiers
+end
+
+-- Extract variable names from different node types (returns array of names)
+local function extract_variable_names(node, bufnr, lang)
 	local node_type = node:type()
 
 	-- JavaScript/TypeScript variable declarator
@@ -93,16 +149,9 @@ local function extract_variable_name(node, bufnr, lang)
 		if name_node then
 			-- Handle destructuring
 			if name_node:type() == "object_pattern" or name_node:type() == "array_pattern" then
-				-- For destructuring, get the first identifier
-				local identifier = name_node:descendant_for_range(name_node:range())
-				while identifier do
-					if identifier:type() == "identifier" or identifier:type() == "shorthand_property_identifier" then
-						return get_node_text(identifier, bufnr)
-					end
-					identifier = identifier:next_sibling()
-				end
+				return extract_identifiers_from_pattern(name_node, bufnr)
 			elseif name_node:type() == "identifier" then
-				return get_node_text(name_node, bufnr)
+				return { get_node_text(name_node, bufnr) }
 			end
 		end
 
@@ -110,18 +159,22 @@ local function extract_variable_name(node, bufnr, lang)
 	elseif node_type == "assignment" or node_type == "annotated_assignment" then
 		local left_node = node:field("left")[1]
 		if left_node and left_node:type() == "identifier" then
-			return get_node_text(left_node, bufnr)
+			return { get_node_text(left_node, bufnr) }
 		end
 
 	-- Go short variable declaration
 	elseif node_type == "short_var_declaration" then
 		local left_node = node:field("left")[1]
 		if left_node then
-			-- Get first identifier in expression list
+			local identifiers = {}
+			-- Get all identifiers in expression list
 			for child in left_node:iter_children() do
 				if child:type() == "identifier" then
-					return get_node_text(child, bufnr)
+					table.insert(identifiers, get_node_text(child, bufnr))
 				end
+			end
+			if #identifiers > 0 then
+				return identifiers
 			end
 		end
 
@@ -129,7 +182,7 @@ local function extract_variable_name(node, bufnr, lang)
 	elseif node_type == "var_spec" then
 		local name_node = node:field("name")[1]
 		if name_node and name_node:type() == "identifier" then
-			return get_node_text(name_node, bufnr)
+			return { get_node_text(name_node, bufnr) }
 		end
 
 	-- Rust let declaration
@@ -137,12 +190,12 @@ local function extract_variable_name(node, bufnr, lang)
 		local pattern_node = node:field("pattern")[1]
 		if pattern_node then
 			if pattern_node:type() == "identifier" then
-				return get_node_text(pattern_node, bufnr)
+				return { get_node_text(pattern_node, bufnr) }
 			elseif pattern_node:type() == "mutable_specifier" then
 				-- For 'let mut x', get the identifier after 'mut'
 				for child in pattern_node:iter_children() do
 					if child:type() == "identifier" then
-						return get_node_text(child, bufnr)
+						return { get_node_text(child, bufnr) }
 					end
 				end
 			end
@@ -152,10 +205,14 @@ local function extract_variable_name(node, bufnr, lang)
 	elseif node_type == "assignment_statement" then
 		local var_list = node:field("variables")[1]
 		if var_list then
+			local identifiers = {}
 			for child in var_list:iter_children() do
 				if child:type() == "identifier" then
-					return get_node_text(child, bufnr)
+					table.insert(identifiers, get_node_text(child, bufnr))
 				end
+			end
+			if #identifiers > 0 then
+				return identifiers
 			end
 		end
 	end
@@ -163,11 +220,11 @@ local function extract_variable_name(node, bufnr, lang)
 	-- Try to find an identifier child as fallback
 	for child in node:iter_children() do
 		if child:type() == "identifier" then
-			return get_node_text(child, bufnr)
+			return { get_node_text(child, bufnr) }
 		end
 	end
 
-	return nil
+	return {}
 end
 
 -- Find declaration nodes in range
@@ -200,13 +257,16 @@ local function find_declarations_in_range(bufnr, start_line, end_line, lang_conf
 			-- Check if this is a declaration type we care about
 			for _, decl_type in ipairs(lang_config.declaration_types) do
 				if node_type == decl_type then
-					local var_name = extract_variable_name(node, bufnr, vim.bo.filetype)
-					if var_name then
-						table.insert(declarations, {
-							node = node,
-							var_name = var_name,
-							end_row = end_row,
-						})
+					local var_names = extract_variable_names(node, bufnr, vim.bo.filetype)
+					if var_names and #var_names > 0 then
+						-- Create a separate declaration entry for each variable
+						for _, var_name in ipairs(var_names) do
+							table.insert(declarations, {
+								node = node,
+								var_name = var_name,
+								end_row = end_row,
+							})
+						end
 					end
 					break
 				end
