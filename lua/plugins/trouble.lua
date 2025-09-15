@@ -14,12 +14,12 @@ return {
 			desc = "Buffer Diagnostics (Trouble)",
 		},
 		{
-			"`",
+			"&",
 			"<cmd>lua vim.diagnostic.goto_next()<cr>",
 			desc = "Next Diagnostic",
 		},
 		{
-			"%",
+			"|",
 			"<cmd>lua vim.diagnostic.goto_prev()<cr>",
 			desc = "Prev Diagnostic",
 		},
