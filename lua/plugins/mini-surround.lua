@@ -3,6 +3,9 @@ return {
 	version = "*",
 	config = function()
 		require("mini.surround").setup({
+			-- How far to search for surroundings
+			n_lines = 200,
+
 			-- add more mappings here
 			mappings = {
 				add = "za", -- Add surrounding in Normal and Visual modes

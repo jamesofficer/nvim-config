@@ -26,13 +26,8 @@ return {
 				return
 			end
 
-			-- vim.lsp.buf.code_action {
-			--   apply = true,
-			--   context = {
-			--     only = { 'source.removeUnusedImports.ts' },
-			--     diagnostics = {},
-			--   },
-			-- }
+			-- Organize imports before formatting
+			require("utils").organize_imports(bufnr)
 
 			return {
 				timeout_ms = 500,
