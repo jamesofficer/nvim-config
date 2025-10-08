@@ -36,7 +36,11 @@ return {
 		end,
 		formatters = {
 			biome = {
+				-- command = "/opt/homebrew/bin/biome",
+				-- command = "node_modules/@biomejs/biome",
 				require_cwd = true,
+				format_with_errors = true,
+				-- cwd = require("conform.util").root_file({ "biome.json" }),
 			},
 		},
 		formatters_by_ft = {
@@ -47,6 +51,7 @@ return {
 			typescriptreact = { "biome" },
 			json = { "biome" },
 			jsonc = { "biome" },
+			css = { "biome" },
 			-- python = { "isort", "black" },
 		},
 	},

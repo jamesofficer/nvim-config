@@ -18,11 +18,22 @@ return {
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 
+			-- ["<Tab>"] = {
+			-- 	function(cmp)
+			-- 		return cmp.select_next()
+			-- 	end,
+			-- 	"snippet_forward",
+			-- 	"fallback",
+			-- },
+
 			["<Tab>"] = {
-				function(cmp)
-					return cmp.select_next()
-				end,
 				"snippet_forward",
+				function() -- sidekick next edit suggestion
+					return require("sidekick").nes_jump_or_apply()
+				end,
+				function() -- if you are using Neovim's native inline completions
+					return vim.lsp.inline_completion.get()
+				end,
 				"fallback",
 			},
 

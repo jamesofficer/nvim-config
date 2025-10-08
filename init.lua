@@ -21,9 +21,21 @@ require("lazy").setup("plugins")
 
 require("quicklog").setup()
 
-local lspconfig = require("lspconfig")
-local lsps = { "ts_ls" }
-for _, lsp in pairs(lsps) do
-	local setup = {}
-	lspconfig[lsp].setup(setup)
-end
+-- local lspconfig = require("lspconfig")
+--
+-- local lsps = { "typescript-language-server", "copilot-language-server" }
+--
+-- for _, lsp in pairs(lsps) do
+-- 	local setup = {}
+-- 	lspconfig[lsp].setup(setup)
+--
+-- 	vim.lsp.enable(lsp)
+-- 	vim.lsp.config(lsp, setup)
+-- end
+
+-- vim.lsp.enable("copilot-language-server")
+-- vim.lsp.config("copilot-language-server", {
+-- 	nes = {
+-- 		enabled = true,
+-- 	},
+-- })
