@@ -9,7 +9,7 @@ return {
 			-- 	ts_ls = {},
 			biome = {
 				root_dir = function(fname)
-					return require("lspconfig.util").root_pattern("biome.json", "biome.jsonc")(fname)
+					return vim.fs.root(fname, { "biome.json", "biome.jsonc" })
 				end,
 				on_attach = function(client, bufnr)
 					-- Disable formatting, let conform.nvim handle it
@@ -20,12 +20,12 @@ return {
 		},
 	},
 	config = function(_, opts)
-		local lspconfig = require("lspconfig")
 		for server, config in pairs(opts.servers) do
 			-- passing config.capabilities to blink.cmp merges with the capabilities in your
 			-- `opts[server].capabilities, if you've defined it
 			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-			lspconfig[server].setup(config)
+			vim.lsp.config(server, config)
+			vim.lsp.enable(server)
 		end
 	end,
 }
