@@ -41,18 +41,31 @@ vim.keymap.set("n", "<leader>cu", function()
 	vim.lsp.buf.code_action({
 		apply = true,
 		context = {
-			only = { "source.removeUnusedImports.ts" },
+			only = { "source.removeUnused" },
 			diagnostics = {},
 		},
 	})
+end, { desc = "Remove unused imports (vtsls)" })
+
+vim.keymap.set("n", "<leader>cA", function()
 	vim.lsp.buf.code_action({
 		apply = true,
 		context = {
-			only = { "source.organizeImports.ts" },
+			only = { "source.addMissingImports" },
 			diagnostics = {},
 		},
 	})
-end, { desc = "Remove unused TypeScript/JavaScript imports" })
+end, { desc = "Add all missing imports (vtsls)" })
+
+vim.keymap.set("n", "<leader>cf", function()
+	vim.lsp.buf.code_action({
+		apply = true,
+		context = {
+			only = { "source.fixAll.biome" },
+			diagnostics = {},
+		},
+	})
+end, { desc = "[F]ix all auto-fixable issues (Biome)" })
 
 vim.keymap.set("n", "<leader>co", function()
 	require("utils").organize_imports()
