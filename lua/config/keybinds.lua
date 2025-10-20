@@ -29,6 +29,14 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", { nore
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
+vim.keymap.set("n", "<leader>cr", function()
+	vim.lsp.buf.code_action({
+		context = {
+			only = { "source", "refactor", "quickfix" },
+		},
+	})
+end, { desc = "[C]ode [R]efactor" })
+
 vim.keymap.set("n", "<leader>cu", function()
 	vim.lsp.buf.code_action({
 		apply = true,

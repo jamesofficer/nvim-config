@@ -1,5 +1,6 @@
 return {
 	"echasnovski/mini.files",
+	lazy = false,
 	version = "*",
 	config = function()
 		local minifiles = require("mini.files")
@@ -22,6 +23,14 @@ return {
 				synchronize = "=",
 				trim_left = "<",
 				trim_right = ">",
+			},
+
+			windows = {
+				max_number = math.huge,
+				preview = false,
+				width_focus = 50,
+				width_nofocus = 15,
+				-- width_preview = 100,
 			},
 
 			options = {

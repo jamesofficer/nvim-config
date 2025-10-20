@@ -4,4 +4,6 @@
 	{ "prefix": "rb", "body": "border: 1px solid red;", "name": "Red border in CSS" },
 	{ "prefix": "rbq", "body": "border: \"1px solid red\",", "name": "Red border in CSS with quotes" },
 	{ "prefix": "rbc", "body": "css={{ border: '1px solid red' }}", "name": "Red border as component prop" }
+	{ "prefix": "rob", "body": "outline: \"1px solid red\"", "name": "Red outline inline style" }
+
 ]
