@@ -29,7 +29,7 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", { nore
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
-vim.keymap.set("n", "<leader>cr", function()
+vim.keymap.set("n", "<leader>cR", function()
 	vim.lsp.buf.code_action({
 		context = {
 			only = { "source", "refactor", "quickfix" },
@@ -47,7 +47,7 @@ vim.keymap.set("n", "<leader>cu", function()
 	})
 end, { desc = "Remove unused imports (vtsls)" })
 
-vim.keymap.set("n", "<leader>cA", function()
+vim.keymap.set("n", "<leader>ci", function()
 	vim.lsp.buf.code_action({
 		apply = true,
 		context = {
@@ -55,7 +55,7 @@ vim.keymap.set("n", "<leader>cA", function()
 			diagnostics = {},
 		},
 	})
-end, { desc = "Add all missing imports (vtsls)" })
+end, { desc = "[I]mport missing imports (vtsls)" })
 
 vim.keymap.set("n", "<leader>cf", function()
 	vim.lsp.buf.code_action({
