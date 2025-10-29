@@ -29,6 +29,10 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.hover()<CR>", { nore
 vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename Symbol" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
+vim.keymap.set("n", "<leader>ll", "`.", { desc = "[L]ast Edit [L]ocation" })
+vim.keymap.set("n", "<leader>ln", "`[", { desc = "Beggining of last yanked/edited line" })
+vim.keymap.set("n", "<leader>li", "`]", { desc = "End of last yanked/edited line" })
+
 vim.keymap.set("n", "<leader>cR", function()
 	vim.lsp.buf.code_action({
 		context = {
