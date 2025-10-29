@@ -41,6 +41,12 @@ vim.keymap.set("n", "<leader>cR", function()
 	})
 end, { desc = "[C]ode [R]efactor" })
 
+vim.keymap.set("n", "<leader>cl", function()
+	local view = vim.fn.winsaveview()
+	vim.cmd([[g/console./norm gcc]])
+	vim.fn.winrestview(view)
+end, { desc = "Toggle comments on all logs" })
+
 vim.keymap.set("n", "<leader>cu", function()
 	vim.lsp.buf.code_action({
 		apply = true,
