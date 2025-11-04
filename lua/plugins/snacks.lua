@@ -15,6 +15,7 @@ return {
 		notifier = { enabled = false },
 		picker = { enabled = true },
 		quickfile = { enabled = false },
+		rename = { enabled = true },
 		scroll = { enabled = false },
 		statuscolumn = { enabled = false },
 		terminal = { enabled = true },
