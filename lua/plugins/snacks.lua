@@ -9,20 +9,40 @@ return {
 		dashboard = { enabled = false },
 		dim = { enabled = true },
 		indent = { enabled = true },
-		input = { enabled = false },
+		input = { enabled = true },
 		lazygit = { enabled = true },
 		gitbrowse = { enabled = true },
 		notifier = { enabled = false },
 		picker = { enabled = true },
 		quickfile = { enabled = false },
 		rename = { enabled = true },
-		scroll = { enabled = false },
+		scroll = {
+			enabled = false,
+			animate = {
+				duration = { step = 10, total = 150 },
+				easing = "linear",
+			},
+		},
 		statuscolumn = { enabled = false },
 		terminal = { enabled = true },
 		words = { enabled = true },
 		zen = { enabled = true },
 	},
 	keys = {
+		--------------
+		-- Scroll
+		--------------
+		{
+			"<leader>us",
+			function()
+				if Snacks.scroll.enabled then
+					Snacks.scroll.disable()
+				else
+					Snacks.scroll.enable()
+				end
+			end,
+			desc = "Toggle Scroll",
+		},
 		--------------
 		-- Terminal
 		--------------
