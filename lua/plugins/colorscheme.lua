@@ -60,4 +60,10 @@ return {
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"Kaikacy/Lemons.nvim",
+		version = "*", -- for stable release
+		lazy = false,
+		priority = 1000,
+	},
 }

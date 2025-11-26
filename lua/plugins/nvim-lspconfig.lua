@@ -19,4 +19,5 @@ return {
 			},
 		},
 	},
+	config = function() end,
 }

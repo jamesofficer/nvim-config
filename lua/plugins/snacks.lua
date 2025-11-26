@@ -26,7 +26,7 @@ return {
 		statuscolumn = { enabled = false },
 		terminal = { enabled = true },
 		words = { enabled = true },
-		zen = { enabled = true },
+		zen = { enabled = false },
 	},
 	keys = {
 		--------------
@@ -66,13 +66,13 @@ return {
 		--------------
 		-- Zen
 		--------------
-		{
-			"<leader>uz",
-			function()
-				Snacks.zen()
-			end,
-			desc = "Zen",
-		},
+		-- {
+		-- 	"<leader>uz",
+		-- 	function()
+		-- 		Snacks.zen()
+		-- 	end,
+		-- 	desc = "Zen",
+		-- },
 		--------------
 		-- Words
 		--------------

@@ -10,3 +10,4 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 vim.opt.cursorline = true -- Show which line your cursor is on
+-- vim.opt.cmdheight = 0

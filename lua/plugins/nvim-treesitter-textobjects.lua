@@ -6,10 +6,10 @@ return {
 				swap = {
 					enable = true,
 					swap_next = {
-						["<leader>p"] = "@parameter.inner",
+						["]p"] = "@parameter.inner",
 					},
 					swap_previous = {
-						["<leader>P"] = "@parameter.inner",
+						["[P"] = "@parameter.inner",
 					},
 				},
 				move = {
@@ -19,21 +19,25 @@ return {
 						["]m"] = "@function.outer",
 						["]]"] = "@class.outer",
 						["]t"] = "@tag.outer", -- Add this for HTML tags
+						["<leader>p"] = "@parameter.inner",
 					},
 					goto_next_end = {
 						["]M"] = "@function.outer",
 						["]["] = "@class.outer",
 						["]T"] = "@tag.outer", -- Add this for HTML tags
+						-- ["<leader>P"] = "@parameter.outer",
 					},
 					goto_previous_start = {
 						["[m"] = "@function.outer",
 						["[["] = "@class.outer",
 						["[t"] = "@tag.outer", -- Add this for HTML tags
+						["<leader>P"] = "@parameter.inner",
 					},
 					goto_previous_end = {
 						["[M"] = "@function.outer",
 						["[]"] = "@class.outer",
 						["[T"] = "@tag.outer", -- Add this for HTML tags
+						-- ["[P"] = "@parameter.outer",
 					},
 				},
 				lsp_interop = {
