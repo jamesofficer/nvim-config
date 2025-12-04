@@ -66,4 +66,66 @@ return {
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"zenbones-theme/zenbones.nvim",
+		-- Optionally install Lush. Allows for more configuration or extending the colorscheme
+		-- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+		-- In Vim, compat mode is turned on as Lush only works in Neovim.
+		dependencies = "rktjmp/lush.nvim",
+		lazy = false,
+		priority = 1000,
+		-- you can set set configuration options here
+		-- config = function()
+		--     vim.g.zenbones_darken_comments = 45
+		--     vim.cmd.colorscheme('zenbones')
+		-- end
+	},
+	{
+		"neanias/everforest-nvim",
+		version = false,
+		lazy = false,
+		priority = 1000, -- make sure to load this before all the other start plugins
+		-- Optional; default configuration will be used if setup isn't called.
+		config = function()
+			require("everforest").setup({
+				-- Your config here
+			})
+		end,
+	},
+	{ "savq/melange-nvim" },
+	{ "rebelot/kanagawa.nvim" },
+	{
+		"wtfox/jellybeans.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {}, -- Optional
+	},
+	{
+		"uloco/bluloco.nvim",
+		lazy = false,
+		priority = 1000,
+		dependencies = { "rktjmp/lush.nvim" },
+		config = function()
+			-- your optional config goes here, see below.
+		end,
+	},
+	{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
+	{ "EdenEast/nightfox.nvim" },
+	{ "projekt0n/github-nvim-theme", name = "github-theme" },
+	{
+		"ray-x/starry.nvim",
+		name = "starry",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("starry").setup({
+				-- your config goes here
+			})
+		end,
+	},
+	{
+		"marko-cerovac/material.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 }
