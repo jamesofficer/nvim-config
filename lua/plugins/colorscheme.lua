@@ -116,15 +116,15 @@ return {
 		name = "starry",
 		lazy = false,
 		priority = 1000,
-		config = function()
-			require("starry").setup({
-				-- your config goes here
-			})
-		end,
 	},
 	{
 		"marko-cerovac/material.nvim",
 		lazy = false,
 		priority = 1000,
+	},
+	{
+		"oskarnurm/koda.nvim",
+		lazy = false, -- make sure we load this during startup if it is your main colorscheme
+		priority = 1000, -- make sure to load this before all the other start plugins
 	},
 }
