@@ -14,6 +14,8 @@ vim.keymap.set("n", "J", "6j", { desc = "Move down 6 lines" })
 vim.keymap.set("n", "<leader>tv", "<CMD>:vsplit<CR>", { desc = "Split [V]ertically" })
 vim.keymap.set("n", "<leader>th", "<CMD>:split<CR>", { desc = "Split [V]ertically" })
 vim.keymap.set("n", "<leader>tt", "<CMD>:wincmd w<CR>", { desc = "Cycle Splits" })
+vim.keymap.set("n", "<leader>tf", "<CMD>:wincmd |<CR>", { desc = "[F]ullscreen (Maximise Width)" })
+vim.keymap.set("n", "<leader>te", "<CMD>:wincmd =<CR>", { desc = "[E]qualize Splits" })
 
 vim.keymap.set("n", "<leader>t<Up>", "<CMD>:wincmd k<CR>", { desc = "Go to Top Split" })
 vim.keymap.set("n", "<leader>t<Down>", "<CMD>:wincmd j<CR>", { desc = "Go to Bottom Split" })

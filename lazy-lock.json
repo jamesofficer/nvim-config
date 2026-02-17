@@ -36,6 +36,7 @@
   "nightfox.nvim": { "branch": "main", "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "434fed70b1ee553f8f27e6da7b3899f71b3c6f99" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
+  "nvim-juliana": { "branch": "master", "commit": "881d1a85d33f744b6b851a210becb3194da8e2a6" },
   "nvim-lspconfig": { "branch": "master", "commit": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "5ca4aaa6efdcc59be46b95a3e876300cfead05ef" },
