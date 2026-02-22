@@ -6,53 +6,76 @@ return {
 		{
 			"<leader>cF",
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				require("conform").format({
+					async = true,
+					lsp_fallback = false, -- prefer explicit formatters
+				})
 			end,
 			mode = "",
 			desc = "[F]ormat buffer",
 		},
 	},
-	opts = {
-		notify_on_error = false,
-		format_on_save = function(bufnr)
-			-- Disable "format_on_save lsp_fallback" for languages that don't
-			-- have a well standardized coding style. You can add additional
-			-- languages here or re-enable it for the disabled ones.
-			local disable_filetypes = { c = true, cpp = true }
+	opts = function()
+		local util = require("conform.util")
 
-			-- Disable autoformat for files in a certain path
-			local bufname = vim.api.nvim_buf_get_name(bufnr)
-			if bufname:match("/node_modules/") then
-				return
-			end
+		local biome_filetypes = {
+			javascript = true,
+			javascriptreact = true,
+			typescript = true,
+			typescriptreact = true,
+			json = true,
+			jsonc = true,
+			css = true,
+		}
 
-			-- Organize imports before formatting
-			require("utils").organize_imports(bufnr)
+		return {
+			notify_on_error = false,
 
-			return {
-				timeout_ms = 500,
-				lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-			}
-		end,
-		formatters = {
-			biome = {
-				-- command = "/opt/homebrew/bin/biome",
-				-- command = "node_modules/@biomejs/biome",
-				require_cwd = true,
-				format_with_errors = true,
-				-- cwd = require("conform.util").root_file({ "biome.json" }),
+			format_on_save = function(bufnr)
+				local ft = vim.bo[bufnr].filetype
+				local bufname = vim.api.nvim_buf_get_name(bufnr)
+
+				if bufname:match("/node_modules/") then
+					return
+				end
+
+				-- Avoid noisy failures on save if no import code action is available
+				pcall(function()
+					require("utils").organize_imports(bufnr)
+				end)
+
+				return {
+					timeout_ms = 1000,
+					lsp_fallback = not biome_filetypes[ft], -- never fallback for Biome-managed files
+				}
+			end,
+
+			formatters = {
+				biome = {
+					-- Workaround for Biome stdin empty-output behavior
+					stdin = false,
+					args = { "format", "--write", "$FILENAME" },
+					cwd = util.root_file({
+						"biome.json",
+						"biome.jsonc",
+						"pnpm-workspace.yaml",
+						".git",
+					}),
+					require_cwd = true,
+				},
 			},
-		},
-		formatters_by_ft = {
-			lua = { "stylua" },
-			javascript = { "biome", stop_after_first = true },
-			javascriptreact = { "biome" },
-			typescript = { "biome" },
-			typescriptreact = { "biome" },
-			json = { "biome" },
-			jsonc = { "biome" },
-			css = { "biome" },
-			-- python = { "isort", "black" },
-		},
-	},
+
+			formatters_by_ft = {
+				lua = { "stylua" },
+
+				javascript = { "biome" },
+				javascriptreact = { "biome" },
+				typescript = { "biome" },
+				typescriptreact = { "biome" },
+				json = { "biome" },
+				jsonc = { "biome" },
+				css = { "biome" },
+			},
+		}
+	end,
 }
