@@ -12,9 +12,20 @@ return {
 					return vim.fs.root(fname, { "biome.json", "biome.jsonc" })
 				end,
 				on_attach = function(client, bufnr)
-					-- Disable formatting, let conform.nvim handle it
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
+					-- Auto-fix and format on save
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						group = vim.api.nvim_create_augroup("BiomeFixAll_" .. bufnr, { clear = true }),
+						callback = function()
+							vim.lsp.buf.code_action({
+								context = {
+									only = { "source.fixAll.biome" },
+									diagnostics = {},
+								},
+								apply = true,
+							})
+						end,
+					})
 				end,
 			},
 		},

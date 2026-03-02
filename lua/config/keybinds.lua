@@ -86,3 +86,18 @@ end, { desc = "Organize imports (Biome → TypeScript)" })
 vim.keymap.set("n", "<leader>up", "<CMD>:Precognition toggle<CR>", { desc = "Toggle Precognition" })
 vim.keymap.set("n", "<leader>uh", "<CMD>:Hardtime toggle<CR>", { desc = "Toggle Hardtime" })
 vim.keymap.set("n", "<leader>ut", "<CMD>:Typr<CR>", { desc = "Toggle Typr" })
+
+vim.keymap.set("n", "<leader>uk", function()
+	local lazy_config = require("lazy.core.config")
+	local plugin = lazy_config.plugins["keep-split-ratio.nvim"]
+	if plugin then
+		if plugin._.loaded then
+			vim.cmd("Lazy unload keep-split-ratio.nvim")
+			vim.notify("Keep Split Ratio: Disabled", vim.log.levels.INFO)
+		else
+			vim.cmd("Lazy load keep-split-ratio.nvim")
+			vim.notify("Keep Split Ratio: Enabled", vim.log.levels.INFO)
+		end
+	end
+end, { desc = "Toggle Keep Split Ratio" })
+vim.keymap.set("n", "<leader>ue", "<C-w>=", { desc = "Equalize splits" })

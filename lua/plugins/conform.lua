@@ -30,7 +30,6 @@ return {
 
 		return {
 			notify_on_error = false,
-
 			format_on_save = function(bufnr)
 				local ft = vim.bo[bufnr].filetype
 				local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -49,7 +48,6 @@ return {
 					lsp_fallback = not biome_filetypes[ft], -- never fallback for Biome-managed files
 				}
 			end,
-
 			formatters = {
 				biome = {
 					-- Workaround for Biome stdin empty-output behavior
@@ -64,10 +62,8 @@ return {
 					require_cwd = true,
 				},
 			},
-
 			formatters_by_ft = {
 				lua = { "stylua" },
-
 				javascript = { "biome" },
 				javascriptreact = { "biome" },
 				typescript = { "biome" },

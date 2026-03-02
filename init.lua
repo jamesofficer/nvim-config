@@ -20,8 +20,6 @@ require("config/keybinds")
 require("config/functions")
 require("lazy").setup("plugins")
 
-require("quicklog").setup()
-
 -- local lspconfig = require("lspconfig")
 --
 -- local lsps = { "typescript-language-server", "copilot-language-server" }

@@ -10,4 +10,8 @@ vim.opt.termguicolors = true
 vim.opt.undofile = true
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 vim.opt.cursorline = true -- Show which line your cursor is on
+
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+
 -- vim.opt.cmdheight = 0
